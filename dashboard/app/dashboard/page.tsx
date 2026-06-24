@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from "recharts";
@@ -29,6 +30,8 @@ const formatTokens = (v: number) =>
   v >= 1000 ? `${(v / 1000).toFixed(1)}K` : `${v}`;
 
 export default function DashboardPage() {
+  const { user, isLoaded } = useUser();
+  const isPro = (user?.publicMetadata?.plan as string) === "pro";
   return (
     <div className="mx-auto max-w-5xl px-6 py-10">
       {/* KPI row */}
@@ -37,14 +40,24 @@ export default function DashboardPage() {
           { label: "Total tokens", value: formatTokens(totalTokens), sub: `${serverData.length} servers`, color: "" },
           { label: "Saved", value: formatTokens(savedTokens), sub: "70% per session", color: "text-green-600 dark:text-green-400" },
           { label: "Cost / session", value: `$${costPerSession.toFixed(3)}`, sub: "Claude Sonnet", color: "text-orange-500 dark:text-orange-400" },
-          { label: "Active profile", value: "default", sub: "all servers", color: "" },
-        ].map((k) => (
-          <div key={k.label} className="rounded-lg border border-border/50 p-4">
-            <p className="text-xs text-muted-foreground mb-0.5">{k.label}</p>
-            <p className={`text-xl font-bold ${k.color}`}>{k.value}</p>
-            <p className={`text-[11px] mt-0.5 ${k.color || "text-muted-foreground"}`}>{k.sub}</p>
-          </div>
-        ))}
+          {
+            label: "Your Plan",
+            value: isPro ? "Pro" : "Free",
+            sub: isPro ? "active" : "upgrade →",
+            color: isPro ? "text-green-600 dark:text-green-400" : "",
+            link: !isPro ? "/pro" : undefined,
+          },
+        ].map((k) => {
+          const Wrapper = k.link ? "a" : "div";
+          const linkProps = k.link ? { href: k.link } : {};
+          return (
+            <Wrapper key={k.label} {...linkProps} className={`rounded-lg border border-border/50 p-4 ${k.link ? "hover:border-green-500 transition-colors cursor-pointer" : ""}`}>
+              <p className="text-xs text-muted-foreground mb-0.5">{k.label}</p>
+              <p className={`text-xl font-bold ${k.color || ""}`}>{k.value}</p>
+              <p className={`text-[11px] mt-0.5 ${k.color || "text-muted-foreground"}`}>{k.sub}</p>
+            </Wrapper>
+          );
+        })}
       </div>
 
       {/* Chart + Servers side by side */}

@@ -16,6 +16,9 @@ export function Nav() {
         <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
           Dashboard
         </Link>
+        <Link href="/pro" className="text-sm font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors">
+          Pro
+        </Link>
         <div className="ml-auto flex items-center gap-4 text-sm">
           <a href="https://github.com/AyhanYetgin/contextopt" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
             GitHub
