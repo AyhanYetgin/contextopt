@@ -23,7 +23,7 @@
 - [x] Config path discovery (Claude/Cursor/Windsurf)
 - [x] Profile komutu persistent CRUD
 - [x] Analyze profile-aware iyileştirme
-- [ ] Dashboard Next.js başlangıcı
+- [x] Dashboard Next.js kurulum (shadcn/ui, landing + dashboard sayfası)
 - [ ] İlk tweet: building in public
 
 ### HAFTA 2 - Proxy Engine (1-7 Temmuz)
@@ -36,10 +36,33 @@
 - [x] GitHub repo aç → github.com/AyhanYetgin/contextopt
 - [x] npm publish → contextopt@0.1.0
 - [x] Proxy HTTP transport (--http flag ile)
-- [x] npm publish → contextopt@0.1.0
 - [x] GitHub Actions CI/CD (build + lint + test)
 - [x] Test framework (Vitest) + ilk unit test'ler
 - [x] Dashboard Next.js kurulum (shadcn/ui, landing + dashboard sayfası)
+
+### AŞAMA 1 — Ürünü Tamamla (Clerk + Turso + API + Stripe)
+- [ ] Clerk auth (GitHub OAuth)
+- [ ] Turso DB kurulum + kullanıcı/config tabloları
+- [ ] API routes (/api/analyze, /api/profile)
+- [ ] Dashboard'u gerçek veriye bağla
+- [ ] Pro kilit mekanizması (Free/Pro ayrımı)
+- [ ] Stripe entegrasyonu ($19/ay)
+
+### AŞAMA 2 — Para Kazanma
+- [ ] CLI'da Pro kilidi (API token doğrulama)
+- [ ] Stripe webhook + abonelik yönetimi
+
+### AŞAMA 3 — Tanıtım
+- [ ] Tweet: building in public
+- [ ] Reddit: r/ClaudeAI, r/cursor
+- [ ] GitHub star kas (README + demo GIF)
+- [ ] Product Hunt hazırlık
+
+### AŞAMA 4 — Lansman (29 Temmuz - 4 Ağustos)
+- [ ] Product Hunt
+- [ ] HN Show HN
+- [ ] Twitter/X thread
+- [ ] İlk 3-5 müşteri
 
 ---
 
