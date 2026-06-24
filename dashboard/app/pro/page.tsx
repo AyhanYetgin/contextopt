@@ -20,29 +20,18 @@ export default function ProPage() {
   const isPro = (user?.publicMetadata?.plan as string) === "pro";
 
   async function handleCheckout() {
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: user?.id,
-          email: user?.emailAddresses?.[0]?.emailAddress,
-          origin: window.location.origin,
-        }),
-      });
-      const data = await res.json();
-      if (data.url && typeof window !== "undefined" && window.Paddle) {
-        window.Paddle.Checkout.open({
-          transactionId: data.url.split("_ptxn=")[1],
-          settings: {
-            displayMode: "overlay",
-            theme: document.documentElement.classList.contains("dark") ? "dark" : "light",
-          },
-        });
-      } else if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch {}
+    if (typeof window === "undefined" || !window.Paddle) return;
+
+    window.Paddle.Checkout.open({
+      items: [{ priceId: "pri_01kvxhzq3a0ddx2fsb1dpbemth", quantity: 1 }],
+      customData: { user_id: user?.id || "" },
+      settings: {
+        displayMode: "overlay",
+        theme: document.documentElement.classList.contains("dark") ? "dark" : "light",
+        successUrl: window.location.origin + "/success",
+        cancelUrl: window.location.origin + "/cancel",
+      },
+    });
   }
 
   if (!isLoaded) return null;
