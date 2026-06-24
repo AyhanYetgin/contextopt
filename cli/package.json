@@ -1,0 +1,28 @@
+{
+  "name": "contextopt",
+  "version": "0.1.0",
+  "description": "MCP Context Optimizer - Reduce AI agent token waste by 60-90%",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "contextopt": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "conf": "^13.0.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.5.0"
+  }
+}
