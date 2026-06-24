@@ -39,19 +39,35 @@ export default function Home() {
       {/* Works with */}
       <section className="py-12 border-t border-border/50 text-center">
         <p className="text-xs text-muted-foreground mb-6 uppercase tracking-widest">Works with</p>
-        <div className="flex justify-center gap-10 md:gap-16 items-center">
-          <div className="flex flex-col items-center gap-2">
-            <Image src="/claude.png" alt="Claude Code" width={28} height={28} className="opacity-60 dark:opacity-50" />
-            <span className="text-xs text-muted-foreground font-medium">Claude Code</span>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <Image src="/cursor.png" alt="Cursor" width={28} height={28} className="opacity-60 dark:opacity-50" />
-            <span className="text-xs text-muted-foreground font-medium">Cursor</span>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <Image src="/windsurf.png" alt="Windsurf" width={28} height={28} className="opacity-60 dark:opacity-50" />
-            <span className="text-xs text-muted-foreground font-medium">Windsurf</span>
-          </div>
+        <div className="flex justify-center gap-6 md:gap-12 items-center flex-wrap">
+          {[
+            { src: "/claude.png", label: "Claude Code", darkAlt: null },
+            { src: "/cursor.png", label: "Cursor", darkAlt: null },
+            { src: "/windsurf.png", label: "Windsurf", darkAlt: null },
+            {
+              src: "/github-copilot-dark.png",
+              label: "GitHub Copilot",
+              darkAlt: { src: "/github-copilot-light.svg", label: "GitHub Copilot" },
+            },
+            { src: "/antigravity.png", label: "Antigravity", darkAlt: null },
+            {
+              src: "/opencode-dark.svg",
+              label: "OpenCode",
+              darkAlt: { src: "/opencode-light.svg", label: "OpenCode" },
+            },
+          ].map((tool) => (
+            <div key={tool.label} className="flex flex-col items-center gap-2">
+              {tool.darkAlt ? (
+                <>
+                  <Image src={tool.src} alt={tool.label} width={28} height={28} className="opacity-60 dark:hidden" />
+                  <Image src={tool.darkAlt.src} alt={tool.darkAlt.label} width={28} height={28} className="hidden dark:block opacity-60" />
+                </>
+              ) : (
+                <Image src={tool.src} alt={tool.label} width={28} height={28} className="opacity-60 dark:opacity-50" />
+              )}
+              <span className="text-xs text-muted-foreground font-medium">{tool.label}</span>
+            </div>
+          ))}
         </div>
       </section>
 
