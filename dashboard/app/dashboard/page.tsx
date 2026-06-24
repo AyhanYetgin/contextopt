@@ -1,12 +1,12 @@
 const serverData = [
-  { name: "filesystem", tokens: 3750, tools: 15, color: "bg-green-600" },
-  { name: "github", tokens: 6250, tools: 25, color: "bg-green-500" },
-  { name: "playwright", tokens: 7500, tools: 30, color: "bg-green-400" },
-  { name: "sequential-thinking", tokens: 750, tools: 3, color: "bg-green-300" },
-  { name: "memory", tokens: 1250, tools: 5, color: "bg-green-200" },
+  { name: "filesystem", tokens: 3750, tools: 15, bar: "w-3/4" },
+  { name: "github", tokens: 6250, tools: 25, bar: "w-full" },
+  { name: "playwright", tokens: 7500, tools: 30, bar: "w-full" },
+  { name: "sequential-thinking", tokens: 750, tools: 3, bar: "w-1/6" },
+  { name: "memory", tokens: 1250, tools: 5, bar: "w-1/5" },
 ];
 
-const maxTokens = Math.max(...serverData.map((s) => s.tokens));
+const maxTokens = 7500;
 
 const profiles = [
   { name: "default", tokens: 19500, savings: null },
@@ -23,46 +23,36 @@ export default function DashboardPage() {
         Token usage analytics for your MCP configuration
       </p>
 
-      {/* KPI cards */}
       <div className="grid gap-4 grid-cols-2 md:grid-cols-4 mb-10">
-        <div className="rounded-lg border border-border/50 p-5">
-          <p className="text-xs text-muted-foreground mb-1">Total tokens</p>
-          <p className="text-2xl font-bold">19.5K</p>
-          <p className="text-xs text-muted-foreground mt-1">5 servers</p>
-        </div>
-        <div className="rounded-lg border border-border/50 p-5">
-          <p className="text-xs text-muted-foreground mb-1">Saved tokens</p>
-          <p className="text-2xl font-bold text-green-600">13.7K</p>
-          <p className="text-xs text-green-600 mt-1">70% reduction</p>
-        </div>
-        <div className="rounded-lg border border-border/50 p-5">
-          <p className="text-xs text-muted-foreground mb-1">Cost saved</p>
-          <p className="text-2xl font-bold text-orange-500">$0.04</p>
-          <p className="text-xs text-muted-foreground mt-1">per session</p>
-        </div>
-        <div className="rounded-lg border border-border/50 p-5">
-          <p className="text-xs text-muted-foreground mb-1">Active profile</p>
-          <p className="text-2xl font-bold">default</p>
-          <p className="text-xs text-muted-foreground mt-1">all servers</p>
-        </div>
+        {[
+          { label: "Total tokens", value: "19.5K", sub: "5 servers", color: "" },
+          { label: "Saved tokens", value: "13.7K", sub: "70% reduction", color: "text-green-600 dark:text-green-400" },
+          { label: "Cost saved", value: "$0.04", sub: "per session", color: "text-orange-500 dark:text-orange-400" },
+          { label: "Active profile", value: "default", sub: "all servers", color: "" },
+        ].map((k) => (
+          <div key={k.label} className="rounded-lg border border-border/50 p-5">
+            <p className="text-xs text-muted-foreground mb-1">{k.label}</p>
+            <p className={`text-2xl font-bold ${k.color}`}>{k.value}</p>
+            <p className={`text-xs mt-1 ${k.color || "text-muted-foreground"}`}>{k.sub}</p>
+          </div>
+        ))}
       </div>
 
-      {/* Server breakdown */}
       <div className="rounded-lg border border-border/50 p-6 mb-8">
         <h2 className="text-sm font-semibold mb-4">Token usage by server</h2>
-        <div className="space-y-3">
-          {serverData.map((server) => (
-            <div key={server.name}>
-              <div className="flex justify-between text-sm mb-1">
-                <span className="font-mono text-sm">{server.name}</span>
+        <div className="space-y-4">
+          {serverData.map((s) => (
+            <div key={s.name}>
+              <div className="flex justify-between text-sm mb-1.5">
+                <span className="font-mono text-sm">{s.name}</span>
                 <span className="text-muted-foreground text-xs">
-                  {server.tokens.toLocaleString()} tokens · {server.tools} tools
+                  {s.tokens.toLocaleString()} tokens · {s.tools} tools
                 </span>
               </div>
               <div className="h-2 bg-secondary rounded-full overflow-hidden">
                 <div
-                  className={`h-full rounded-full ${server.color} transition-all`}
-                  style={{ width: `${(server.tokens / maxTokens) * 100}%` }}
+                  className="h-full rounded-full bg-green-500 dark:bg-green-400 transition-all"
+                  style={{ width: `${(s.tokens / maxTokens) * 100}%` }}
                 />
               </div>
             </div>
@@ -70,19 +60,18 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Profile comparison */}
       <div className="rounded-lg border border-border/50 p-6 mb-8">
         <h2 className="text-sm font-semibold mb-4">Profile comparison</h2>
-        <div className="space-y-3">
+        <div className="space-y-1">
           {profiles.map((p) => (
-            <div key={p.name} className="flex items-center justify-between py-2 border-b border-border/30 last:border-0">
+            <div key={p.name} className="flex items-center justify-between py-2.5 border-b border-border/30 last:border-0">
               <div className="flex items-center gap-3">
                 <span className="text-sm font-medium min-w-20">{p.name}</span>
                 <span className="text-xs text-muted-foreground">
                   {p.tokens.toLocaleString()} tokens
                 </span>
               </div>
-              <span className={`text-xs font-medium ${p.savings ? "text-green-600" : "text-muted-foreground"}`}>
+              <span className={`text-xs font-medium ${p.savings ? "text-green-600 dark:text-green-400" : "text-muted-foreground"}`}>
                 {p.savings ? `−${p.savings}%` : "baseline"}
               </span>
             </div>
@@ -90,7 +79,6 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Quick start */}
       <div className="rounded-lg border border-border/50 p-6">
         <h2 className="text-sm font-semibold mb-2">Quick start</h2>
         <p className="text-xs text-muted-foreground mb-3">
