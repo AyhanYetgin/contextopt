@@ -4,6 +4,7 @@ import { Command } from "commander";
 import { analyzeCommand } from "./commands/analyze.js";
 import { startCommand } from "./commands/start.js";
 import { profileCommand } from "./commands/profile.js";
+import { configCommand } from "./commands/config.js";
 import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -23,5 +24,6 @@ program
 program.addCommand(analyzeCommand);
 program.addCommand(startCommand);
 program.addCommand(profileCommand);
+program.addCommand(configCommand);
 
 program.parse(process.argv);

@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import chalk from "chalk";
 import { startProxy, startHttpProxy } from "../proxy/server.js";
+import { requirePro } from "../utils/pro.js";
 
 export const startCommand = new Command("start")
   .description("Start the MCP context optimizer proxy")
@@ -10,6 +11,10 @@ export const startCommand = new Command("start")
   .option("--http", "Start in HTTP mode instead of stdio")
   .action(async (options) => {
     try {
+      if (options.http) {
+        await requirePro("HTTP proxy (--http)");
+      }
+
       console.error(chalk.bold("\n🚀 ContextOpt Proxy\n"));
       console.error(`  ${chalk.cyan("Mode:")}    ${options.http ? "HTTP" : "stdio"}`);
       console.error(`  ${chalk.cyan("Profile:")} ${options.profile || "default"}`);

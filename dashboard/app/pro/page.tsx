@@ -28,12 +28,28 @@ export default function ProPage() {
   if (!isLoaded) return null;
 
   if (isPro) {
+    const proToken = user?.id ? `ctopt_${user.id.slice(0, 12)}` : "";
+
     return (
       <div className="mx-auto max-w-3xl px-6 py-20 text-center">
         <h1 className="text-2xl font-bold mb-4">You&apos;re a Pro user 🎉</h1>
         <p className="text-muted-foreground mb-8">
           You have full access to all features.
         </p>
+
+        <div className="rounded-lg border border-border/50 p-6 mb-8 text-left max-w-md mx-auto">
+          <p className="text-sm font-semibold mb-2">Your CLI Token</p>
+          <p className="text-xs text-muted-foreground mb-3">
+            Use this token to unlock Pro features in the CLI.
+          </p>
+          <pre className="text-xs bg-secondary p-3 rounded-lg overflow-x-auto select-all cursor-pointer">
+            <code>{proToken}</code>
+          </pre>
+          <p className="text-xs text-muted-foreground mt-2">
+            Run: <code className="bg-secondary px-1 rounded text-[11px]">contextopt config set token {proToken}</code>
+          </p>
+        </div>
+
         <a
           href="/dashboard"
           className="inline-flex h-10 items-center justify-center rounded-md bg-green-600 px-6 text-sm font-medium text-white hover:bg-green-700 transition-colors"
