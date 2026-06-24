@@ -23,7 +23,7 @@ export default function Home() {
             href="https://github.com/AyhanYetgin/contextopt"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-10 items-center justify-center rounded-md border border-border bg-background px-6 text-sm font-medium shadow-sm hover:bg-secondary transition-colors"
+            className="inline-flex h-10 items-center justify-center rounded-md border border-border bg-background dark:bg-white/10 dark:text-white px-6 text-sm font-medium shadow-sm hover:bg-secondary dark:hover:bg-white/20 transition-colors"
           >
             View on GitHub →
           </a>
