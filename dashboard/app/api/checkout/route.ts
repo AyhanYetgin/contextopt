@@ -27,21 +27,21 @@ export async function POST(req: NextRequest) {
 
     if (!res.ok) {
       return NextResponse.json(
-        { error: "Checkout creation failed", details: data.error },
+        { error: "Checkout creation failed" },
         { status: res.status }
       );
     }
 
-    const checkoutUrl = data.data?.attributes?.url;
+    const checkoutUrl = data.data?.checkout?.url;
     if (!checkoutUrl) {
       return NextResponse.json(
-        { error: "No checkout URL in response" },
+        { error: "No checkout URL" },
         { status: 500 }
       );
     }
 
     return NextResponse.json({ url: checkoutUrl });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
