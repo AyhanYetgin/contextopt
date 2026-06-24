@@ -70,7 +70,7 @@ export const analyzeCommand = new Command("analyze")
         : null;
 
       if (options.json) {
-        console.log(JSON.stringify({ fullReport: report, filteredReport, activeProfile: profileServers ? store.get("active") : null }, null, 2));
+        console.log(JSON.stringify({ fullReport: report, filteredReport, activeProfile: store.get("active") }, null, 2));
         return;
       }
 
@@ -98,8 +98,7 @@ export const analyzeCommand = new Command("analyze")
       }
 
       if (filteredReport) {
-        const activeProfile = store.get("active");
-        console.log(chalk.bold(`\n📊 Profile: ${chalk.cyan(activeProfile)}\n`));
+        console.log(chalk.bold(`\n📊 Profile: ${chalk.cyan(store.get("active"))}\n`));
         console.log(
           `  With profile: ${chalk.green(formatTokenCount(filteredReport.totalTokens))} tokens`
         );

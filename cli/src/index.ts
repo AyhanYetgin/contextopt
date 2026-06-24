@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Command } from "commander";
 import { analyzeCommand } from "./commands/analyze.js";
 import { startCommand } from "./commands/start.js";

@@ -33,7 +33,7 @@
 - [x] Context window optimizer (profile'a göre tool filtreleme + token savings)
 - [x] Profile sistemi (coding/debug/research)
 - [x] Test: sequential-thinking MCP server başarılı (tools/list çalışıyor)
-- [ ] GitHub repo aç
+- [x] GitHub repo aç → github.com/AyhanYetgin/contextopt
 
 ---
 

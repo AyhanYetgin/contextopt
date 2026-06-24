@@ -40,3 +40,4 @@
 - Claude Code'un MCP config'i ~/.claude/settings.json'da
 - Kullanıcı bunu okuyup optimize edebilmeli
 - Lazy loading: tool'lar sadece kullanılınca yüklensin
+- GitHub repo: github.com/AyhanYetgin/contextopt
