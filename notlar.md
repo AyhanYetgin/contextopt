@@ -43,4 +43,7 @@
 - GitHub repo: github.com/AyhanYetgin/contextopt
 - npm: contextopt@0.1.0
 - Proxy: HTTP mode eklendi (--http flag, Streamable HTTP transport)
+- GitHub Actions: CI (build+lint+test) + Publish workflow
+- Vitest: 7 test, hepsi geçiyor
+- Dashboard: Next.js 16 + shadcn/ui, landing + /dashboard sayfası
 - Kullanım: contextopt start --http --port 3456

@@ -36,6 +36,10 @@
 - [x] GitHub repo aç → github.com/AyhanYetgin/contextopt
 - [x] npm publish → contextopt@0.1.0
 - [x] Proxy HTTP transport (--http flag ile)
+- [x] npm publish → contextopt@0.1.0
+- [x] GitHub Actions CI/CD (build + lint + test)
+- [x] Test framework (Vitest) + ilk unit test'ler
+- [x] Dashboard Next.js kurulum (shadcn/ui, landing + dashboard sayfası)
 
 ---
 
