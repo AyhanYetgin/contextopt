@@ -34,6 +34,8 @@
 - [x] Profile sistemi (coding/debug/research)
 - [x] Test: sequential-thinking MCP server başarılı (tools/list çalışıyor)
 - [x] GitHub repo aç → github.com/AyhanYetgin/contextopt
+- [x] npm publish → contextopt@0.1.0
+- [x] Proxy HTTP transport (--http flag ile)
 
 ---
 

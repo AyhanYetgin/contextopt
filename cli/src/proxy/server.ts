@@ -1,5 +1,6 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
@@ -8,15 +9,17 @@ import {
 import { ServerManager } from "./manager.js";
 import { ContextOptimizer, ToolEntry } from "./optimizer.js";
 import { parseMCPConfig, MCPServerConfig } from "../mcp/parser.js";
+import { createServer } from "node:http";
 import Conf from "conf";
 
 const store = new Conf<{ active: string; profiles: Record<string, { servers: string[] }> }>({
   projectName: "contextopt",
 });
 
-interface ProxyOptions {
+export interface ProxyOptions {
   configPath?: string;
   profileName?: string;
+  port?: number;
 }
 
 function getProfileServers(profileName?: string): string[] | null {
@@ -30,7 +33,7 @@ function getProfileServers(profileName?: string): string[] | null {
   }
 }
 
-export async function startProxy(options: ProxyOptions): Promise<void> {
+function createProxyServer(options: ProxyOptions) {
   const server = new Server(
     { name: "contextopt", version: "0.1.0" },
     { capabilities: { tools: { listChanged: false } } }
@@ -43,6 +46,16 @@ export async function startProxy(options: ProxyOptions): Promise<void> {
   );
 
   const config = parseMCPConfig(options.configPath);
+
+  async function tryStartServer(name: string, serverConfig: MCPServerConfig): Promise<void> {
+    try {
+      console.error(`[proxy] Starting server: ${name}`);
+      await manager.startServer(name, serverConfig);
+      console.error(`[proxy] Server "${name}" ready`);
+    } catch (error) {
+      console.error(`[proxy] Failed to start server "${name}":`, error);
+    }
+  }
 
   async function startRelevantServers(): Promise<void> {
     const entries = Object.entries(config.servers);
@@ -62,20 +75,9 @@ export async function startProxy(options: ProxyOptions): Promise<void> {
     }
   }
 
-  async function tryStartServer(name: string, serverConfig: MCPServerConfig): Promise<void> {
-    try {
-      console.error(`[proxy] Starting server: ${name}`);
-      await manager.startServer(name, serverConfig);
-      console.error(`[proxy] Server "${name}" ready`);
-    } catch (error) {
-      console.error(`[proxy] Failed to start server "${name}":`, error);
-    }
-  }
-
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     const allEntries: ToolEntry[] = [];
-    const allServers = manager.getAllTools();
-    for (const { serverName, tools } of allServers) {
+    for (const { serverName, tools } of manager.getAllTools()) {
       for (const tool of tools) {
         allEntries.push({
           serverName,
@@ -87,7 +89,6 @@ export async function startProxy(options: ProxyOptions): Promise<void> {
     }
 
     const filtered = optimizer.filterTools(allEntries);
-
     const savings = optimizer.calculateSavings(allEntries, filtered);
     console.error(
       `[proxy] tools/list: ${allEntries.length} total, ${filtered.length} after profile filter (${savings.savingsPercent}% reduction)`
@@ -107,8 +108,7 @@ export async function startProxy(options: ProxyOptions): Promise<void> {
     const args = request.params.arguments;
 
     const allEntries: ToolEntry[] = [];
-    const allServers = manager.getAllTools();
-    for (const { serverName, tools } of allServers) {
+    for (const { serverName, tools } of manager.getAllTools()) {
       for (const tool of tools) {
         allEntries.push({
           serverName,
@@ -131,18 +131,22 @@ export async function startProxy(options: ProxyOptions): Promise<void> {
 
     console.error(`[proxy] tools/call: ${toolName} → ${match.serverName}`);
 
-    const result = await serverObj.client.callTool(
+    return await serverObj.client.callTool(
       { name: toolName, arguments: args },
       undefined,
       {}
     );
-
-    return result;
   });
 
   server.setRequestHandler(PingRequestSchema, async () => ({}));
 
-  console.error(`[proxy] Starting ContextOpt Proxy...`);
+  return { server, manager, startRelevantServers };
+}
+
+export async function startProxy(options: ProxyOptions): Promise<void> {
+  const { server, manager, startRelevantServers } = createProxyServer(options);
+
+  console.error(`[proxy] Starting ContextOpt Proxy (stdio)...`);
   await startRelevantServers();
   console.error(`[proxy] Running servers: ${manager.runningServers.join(", ") || "none"}`);
 
@@ -159,6 +163,60 @@ export async function startProxy(options: ProxyOptions): Promise<void> {
 
   process.on("SIGTERM", async () => {
     await manager.stopAll();
+    process.exit(0);
+  });
+}
+
+export async function startHttpProxy(options: ProxyOptions): Promise<void> {
+  const { server, manager, startRelevantServers } = createProxyServer(options);
+  const port = options.port || 3001;
+
+  console.error(`[proxy] Starting ContextOpt Proxy (HTTP port ${port})...`);
+  await startRelevantServers();
+  console.error(`[proxy] Running servers: ${manager.runningServers.join(", ") || "none"}`);
+
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: () => crypto.randomUUID(),
+  });
+
+  await server.connect(transport);
+
+  const httpServer = createServer(async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+    if (req.method === "OPTIONS") {
+      res.writeHead(200);
+      res.end();
+      return;
+    }
+
+    try {
+      await transport.handleRequest(req, res);
+    } catch (error) {
+      console.error("[proxy] HTTP error:", error);
+      if (!res.headersSent) {
+        res.writeHead(500);
+        res.end(JSON.stringify({ error: "Internal Server Error" }));
+      }
+    }
+  });
+
+  httpServer.listen(port, () => {
+    console.error(`[proxy] HTTP proxy ready on http://localhost:${port}`);
+  });
+
+  process.on("SIGINT", async () => {
+    console.error("\n[proxy] Shutting down...");
+    await manager.stopAll();
+    httpServer.close();
+    process.exit(0);
+  });
+
+  process.on("SIGTERM", async () => {
+    await manager.stopAll();
+    httpServer.close();
     process.exit(0);
   });
 }

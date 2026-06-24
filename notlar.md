@@ -41,3 +41,6 @@
 - Kullanıcı bunu okuyup optimize edebilmeli
 - Lazy loading: tool'lar sadece kullanılınca yüklensin
 - GitHub repo: github.com/AyhanYetgin/contextopt
+- npm: contextopt@0.1.0
+- Proxy: HTTP mode eklendi (--http flag, Streamable HTTP transport)
+- Kullanım: contextopt start --http --port 3456
