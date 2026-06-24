@@ -1,6 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 
+const tools = [
+  { src: "/claudecode-color-light.png", label: "Claude Code" },
+  { src: "/cursor.png", label: "Cursor" },
+  { src: "/windsurf.png", label: "Windsurf" },
+  { src: "/antigravity.png", label: "Antigravity" },
+  { src: "/opencode-dark.svg", label: "OpenCode", dark: "/opencode-light.svg" },
+];
+
 export default function Home() {
   return (
     <div className="mx-auto max-w-5xl px-6">
@@ -36,29 +44,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Works with */}
-      <section className="py-12 border-t border-border/50 text-center">
+      {/* Works with — infinite scroll */}
+      <section className="py-12 border-t border-border/50 text-center overflow-hidden">
         <p className="text-xs text-muted-foreground mb-6 uppercase tracking-widest">Works with</p>
-        <div className="flex justify-center gap-6 md:gap-12 items-center flex-wrap">
-          {[
-            { src: "/claudecode-color-light.png", label: "Claude Code" },
-            { src: "/cursor.png", label: "Cursor" },
-            { src: "/windsurf.png", label: "Windsurf" },
-            { src: "/antigravity.png", label: "Antigravity" },
-            { src: "/opencode-dark.svg", label: "OpenCode", dark: "/opencode-light.svg" },
-          ].map((tool) => (
-            <div key={tool.label} className="flex flex-col items-center gap-2">
-              {tool.dark ? (
-                <>
-                  <Image src={tool.src} alt={tool.label} width={28} height={28} className="opacity-60 dark:hidden" />
-                  <Image src={tool.dark} alt={tool.label} width={28} height={28} className="hidden dark:block opacity-60" />
-                </>
-              ) : (
-                <Image src={tool.src} alt={tool.label} width={28} height={28} className="opacity-60 dark:opacity-50" />
-              )}
-              <span className="text-xs text-muted-foreground font-medium">{tool.label}</span>
-            </div>
-          ))}
+        <div
+          className="relative [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+        >
+          <div className="flex gap-6 md:gap-12 items-center animate-scroll w-max">
+            {[...Array(2)].map((_, group) =>
+              tools.map((tool) => (
+                <div key={`${group}-${tool.label}`} className="flex flex-col items-center gap-2 shrink-0">
+                  {tool.dark ? (
+                    <>
+                      <Image src={tool.src} alt={tool.label} width={28} height={28} className="opacity-60 dark:hidden" />
+                      <Image src={tool.dark} alt={tool.label} width={28} height={28} className="hidden dark:block opacity-60" />
+                    </>
+                  ) : (
+                    <Image src={tool.src} alt={tool.label} width={28} height={28} className="opacity-60 dark:opacity-50" />
+                  )}
+                  <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">{tool.label}</span>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </section>
 
