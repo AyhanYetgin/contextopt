@@ -36,6 +36,20 @@
 - Dashboard'da hangi metrikler kritik?
   → Token savings %, tool usage frequency, cost per session
 
+## ⚠️ Düzeltilmesi Gerekenler
+
+### Lemon Squeezy — USD Store (Kritik)
+- **Sorun:** Store TRY para biriminde açıldı, site $19 diyor ama checkout TRY gösteriyor
+- **Çözüm:** Yeni bir USD store aç + USD ile $19/ay product oluştur
+- **Ne zaman:** Rate limit geçince (1 saat sonra)
+- **Nasıl:**
+  1. https://lemonsqueezy.com → Stores → Create Store
+  2. Store name: `ContextOpt`, Currency: **USD**, Country: `United States`
+  3. Store URL: `contextopt-shop` gibi boşta bir şey
+  4. New Product → Subscription → $19/month
+  5. Store ID + Variant ID'yi al → `.env.local`'ı güncelle
+- **Kime:** Ayhan
+
 ## Fikirler
 - Claude Code'un MCP config'i ~/.claude/settings.json'da
 - Kullanıcı bunu okuyup optimize edebilmeli
