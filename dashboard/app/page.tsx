@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -38,23 +39,17 @@ export default function Home() {
       {/* Works with */}
       <section className="py-12 border-t border-border/50 text-center">
         <p className="text-xs text-muted-foreground mb-6 uppercase tracking-widest">Works with</p>
-        <div className="flex justify-center gap-8 md:gap-12 items-center">
-          <div className="flex flex-col items-center gap-1.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground">
-              <polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/>
-            </svg>
+        <div className="flex justify-center gap-10 md:gap-16 items-center">
+          <div className="flex flex-col items-center gap-2">
+            <Image src="/claude.png" alt="Claude Code" width={28} height={28} className="opacity-60 dark:opacity-50" />
             <span className="text-xs text-muted-foreground font-medium">Claude Code</span>
           </div>
-          <div className="flex flex-col items-center gap-1.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground">
-              <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
-            </svg>
+          <div className="flex flex-col items-center gap-2">
+            <Image src="/cursor.png" alt="Cursor" width={28} height={28} className="opacity-60 dark:opacity-50" />
             <span className="text-xs text-muted-foreground font-medium">Cursor</span>
           </div>
-          <div className="flex flex-col items-center gap-1.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground">
-              <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
-            </svg>
+          <div className="flex flex-col items-center gap-2">
+            <Image src="/windsurf.png" alt="Windsurf" width={28} height={28} className="opacity-60 dark:opacity-50" />
             <span className="text-xs text-muted-foreground font-medium">Windsurf</span>
           </div>
         </div>
