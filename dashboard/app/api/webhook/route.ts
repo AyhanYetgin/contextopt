@@ -5,17 +5,24 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const eventName = body.meta?.event_name;
-    const customData = body.data?.attributes?.custom_data || {};
-    const userId = customData.user_id;
+    // Paddle webhook events
+    const eventType = body.event_type;
+
+    // Extract user_id from custom data
+    const userId =
+      body.data?.custom_data?.user_id ||
+      body.data?.subscription?.custom_data?.user_id;
 
     if (!userId) {
       return NextResponse.json({ received: true });
     }
 
-    // Update Clerk user metadata based on subscription events
-    if (eventName === "order_created" || eventName === "subscription_created") {
-      const client = await clerkClient();
+    const client = await clerkClient();
+
+    if (
+      eventType === "subscription.created" ||
+      eventType === "transaction.completed"
+    ) {
       await client.users.updateUserMetadata(userId, {
         publicMetadata: {
           plan: "pro",
@@ -24,8 +31,10 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    if (eventName === "subscription_cancelled" || eventName === "subscription_expired") {
-      const client = await clerkClient();
+    if (
+      eventType === "subscription.cancelled" ||
+      eventType === "subscription.expired"
+    ) {
       await client.users.updateUserMetadata(userId, {
         publicMetadata: {
           plan: "free",

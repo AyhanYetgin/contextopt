@@ -174,7 +174,7 @@ export default function Home() {
               </div>
               <div className="text-xs flex justify-between pt-1">
                 <span className="text-muted-foreground">Minus Pro</span>
-                <span className="text-muted-foreground">− $19</span>
+                <span className="text-muted-foreground">− \$20</span>
               </div>
               <div className="flex justify-between text-sm font-bold text-green-600 dark:text-green-400 pt-1 border-t border-border/50">
                 <span>Net in your pocket</span>
@@ -214,7 +214,7 @@ export default function Home() {
 
         <p className="text-sm text-muted-foreground mt-8 max-w-lg mx-auto">
           The typical developer saves <strong className="text-foreground">$72/month</strong> on tokens,
-          pays <strong className="text-green-600 dark:text-green-400">$19/month</strong> for Pro,
+          pays <strong className="text-green-600 dark:text-green-400">\$20/month</strong> for Pro,
           and keeps <strong className="text-green-600 dark:text-green-400">$53/month</strong> in their pocket.
         </p>
 
@@ -252,7 +252,7 @@ export default function Home() {
             <div className="p-6 flex flex-col flex-1">
               <h3 className="text-lg font-semibold">Pro</h3>
               <p className="text-3xl font-bold mt-1 mb-6">
-                $19<span className="text-base font-normal text-muted-foreground">/month</span>
+                \$20<span className="text-base font-normal text-muted-foreground">/month</span>
               </p>
               <ul className="space-y-3 text-sm flex-1">
                 {[
