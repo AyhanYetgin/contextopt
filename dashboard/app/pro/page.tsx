@@ -4,25 +4,45 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+declare global {
+  interface Window {
+    Paddle?: {
+      Checkout: {
+        open: (config: Record<string, unknown>) => void;
+      };
+    };
+  }
+}
+
 export default function ProPage() {
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const isPro = (user?.publicMetadata?.plan as string) === "pro";
 
   async function handleCheckout() {
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId: user?.id,
-        email: user?.emailAddresses?.[0]?.emailAddress,
-        origin: window.location.origin,
-      }),
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    }
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user?.id,
+          email: user?.emailAddresses?.[0]?.emailAddress,
+          origin: window.location.origin,
+        }),
+      });
+      const data = await res.json();
+      if (data.url && typeof window !== "undefined" && window.Paddle) {
+        window.Paddle.Checkout.open({
+          transactionId: data.url.split("_ptxn=")[1],
+          settings: {
+            displayMode: "overlay",
+            theme: document.documentElement.classList.contains("dark") ? "dark" : "light",
+          },
+        });
+      } else if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch {}
   }
 
   if (!isLoaded) return null;
