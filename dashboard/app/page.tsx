@@ -41,29 +41,27 @@ export default function Home() {
         <p className="text-xs text-muted-foreground mb-6 uppercase tracking-widest">Works with</p>
         <div className="flex justify-center gap-6 md:gap-12 items-center flex-wrap">
           {[
-            { src: "/claude.png", label: "Claude Code", darkAlt: null },
-            { src: "/cursor.png", label: "Cursor", darkAlt: null },
-            { src: "/windsurf.png", label: "Windsurf", darkAlt: null },
-            {
-              src: "/github-copilot-dark.png",
-              label: "GitHub Copilot",
-              darkAlt: { src: "/github-copilot-light.svg", label: "GitHub Copilot" },
-            },
-            { src: "/antigravity.png", label: "Antigravity", darkAlt: null },
-            {
-              src: "/opencode-dark.svg",
-              label: "OpenCode",
-              darkAlt: { src: "/opencode-light.svg", label: "OpenCode" },
-            },
+            { src: "/claude.png", label: "Claude Code" },
+            { src: "/cursor.png", label: "Cursor" },
+            { src: "/windsurf.png", label: "Windsurf" },
+            { src: "/github-copilot-dark.png", label: "GitHub Copilot", invert: true },
+            { src: "/antigravity.png", label: "Antigravity" },
+            { src: "/opencode-dark.svg", label: "OpenCode", dark: "/opencode-light.svg" },
           ].map((tool) => (
             <div key={tool.label} className="flex flex-col items-center gap-2">
-              {tool.darkAlt ? (
+              {tool.dark ? (
                 <>
                   <Image src={tool.src} alt={tool.label} width={28} height={28} className="opacity-60 dark:hidden" />
-                  <Image src={tool.darkAlt.src} alt={tool.darkAlt.label} width={28} height={28} className="hidden dark:block opacity-60" />
+                  <Image src={tool.dark} alt={tool.label} width={28} height={28} className="hidden dark:block opacity-60" />
                 </>
               ) : (
-                <Image src={tool.src} alt={tool.label} width={28} height={28} className="opacity-60 dark:opacity-50" />
+                <Image
+                  src={tool.src}
+                  alt={tool.label}
+                  width={28}
+                  height={28}
+                  className={`opacity-60 dark:opacity-50 ${tool.invert ? "dark:invert" : ""}`}
+                />
               )}
               <span className="text-xs text-muted-foreground font-medium">{tool.label}</span>
             </div>
