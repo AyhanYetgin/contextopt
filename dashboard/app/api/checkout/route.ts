@@ -1,24 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const LS_API = "https://api.lemonsqueezy.com/v1";
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
 
-    const response = await fetch("https://api.lemonsqueezy.com/v1/checkouts", {
+    const response = await fetch(`${LS_API}/checkouts`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.LEMONSQUEEZY_API_KEY}`,
+        Authorization: `Bearer ${process.env.LEMONSQUEEZY_API_KEY}`,
         "Content-Type": "application/json",
-        "Accept": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
         data: {
           type: "checkouts",
           attributes: {
-            product_options: {
-              redirect_url: `${body.origin || "http://localhost:3000"}/success`,
-              cancel_url: `${body.origin || "http://localhost:3000"}/cancel`,
-            },
             checkout_data: {
               email: body.email || "",
               custom: {
@@ -42,13 +40,13 @@ export async function POST(req: NextRequest) {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "Failed to create checkout" },
+        { error: "Failed to create checkout", details: data.errors },
         { status: response.status }
       );
     }
 
     return NextResponse.json({ url: data.data.attributes.url });
-  } catch {
+  } catch (error) {
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
