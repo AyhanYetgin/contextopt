@@ -122,32 +122,100 @@ export default function Home() {
         </div>
       </section>
 
-      {/* COST CALCULATOR */}
+      {/* YOUR SAVINGS */}
       <section className="py-20 border-t border-border/50 text-center">
-        <h2 className="text-2xl font-bold tracking-tight mb-3">See how much you can save</h2>
-        <p className="text-sm text-muted-foreground mb-10 max-w-md mx-auto">
-          Based on a typical developer with 50 AI sessions per day, each saving 20K tokens.
+        <h2 className="text-2xl font-bold tracking-tight mb-3">What you save with ContextOpt</h2>
+        <p className="text-sm text-muted-foreground mb-10 max-w-lg mx-auto">
+          Pick the scenario closest to you. Your token savings pay for Pro many times over.
         </p>
-        <div className="grid gap-4 md:grid-cols-3 max-w-3xl mx-auto">
-          <div className="rounded-lg border border-border/50 p-6">
-            <p className="text-sm text-muted-foreground mb-1">Daily savings</p>
-            <p className="text-3xl font-bold text-green-600 dark:text-green-400">$3</p>
-            <p className="text-xs text-muted-foreground mt-1">50 sessions × 20K tokens</p>
-          </div>
-          <div className="rounded-lg border border-green-500 dark:border-green-400 p-6 relative">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-600 text-white text-[11px] px-3 py-0.5 rounded-full">
-              You keep $71
+
+        <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
+          {/* Solo Dev */}
+          <div className="rounded-lg border border-border/50 p-6 flex flex-col">
+            <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Solo Dev</p>
+            <p className="text-sm font-semibold mb-4">25 sessions/day · 3 servers</p>
+            <div className="flex-1 space-y-3">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Token cost/mo</span>
+                <span className="line-through text-muted-foreground">$45</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">With ContextOpt</span>
+                <span className="text-green-600 dark:text-green-400 font-semibold">$9</span>
+              </div>
+              <div className="border-t border-border/50 pt-3 flex justify-between text-sm font-semibold">
+                <span>You save</span>
+                <span className="text-green-600 dark:text-green-400">$36/mo</span>
+              </div>
+              <div className="text-xs text-muted-foreground pt-1">Free plan</div>
             </div>
-            <p className="text-sm text-muted-foreground mb-1">Monthly savings</p>
-            <p className="text-3xl font-bold text-green-600 dark:text-green-400">$90</p>
-            <p className="text-xs text-muted-foreground mt-1">1,000 sessions · <span className="text-green-600 dark:text-green-400 font-medium">Pro $19</span></p>
           </div>
-          <div className="rounded-lg border border-border/50 p-6">
-            <p className="text-sm text-muted-foreground mb-1">Yearly savings</p>
-            <p className="text-3xl font-bold text-green-600 dark:text-green-400">$852</p>
-            <p className="text-xs text-muted-foreground mt-1">after Pro subscription</p>
+
+          {/* Power User — highlighted */}
+          <div className="rounded-lg border border-green-500 dark:border-green-400 p-6 flex flex-col relative">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-600 text-white text-[11px] px-3 py-0.5 rounded-full whitespace-nowrap">
+              Most common
+            </div>
+            <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Power User</p>
+            <p className="text-sm font-semibold mb-4">50 sessions/day · 5 servers</p>
+            <div className="flex-1 space-y-3">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Token cost/mo</span>
+                <span className="line-through text-muted-foreground">$90</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">With ContextOpt</span>
+                <span className="text-green-600 dark:text-green-400 font-semibold">$18</span>
+              </div>
+              <div className="border-t border-border/50 pt-3 flex justify-between text-sm font-semibold">
+                <span>You save</span>
+                <span className="text-green-600 dark:text-green-400">$72/mo</span>
+              </div>
+              <div className="text-xs flex justify-between pt-1">
+                <span className="text-muted-foreground">Minus Pro</span>
+                <span className="text-muted-foreground">− $19</span>
+              </div>
+              <div className="flex justify-between text-sm font-bold text-green-600 dark:text-green-400 pt-1 border-t border-border/50">
+                <span>Net in your pocket</span>
+                <span>+$53/mo</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Small Team */}
+          <div className="rounded-lg border border-border/50 p-6 flex flex-col">
+            <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Small Team</p>
+            <p className="text-sm font-semibold mb-4">200 sessions/day · 8 servers</p>
+            <div className="flex-1 space-y-3">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Token cost/mo</span>
+                <span className="line-through text-muted-foreground">$360</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">With ContextOpt</span>
+                <span className="text-green-600 dark:text-green-400 font-semibold">$72</span>
+              </div>
+              <div className="border-t border-border/50 pt-3 flex justify-between text-sm font-semibold">
+                <span>You save</span>
+                <span className="text-green-600 dark:text-green-400">$288/mo</span>
+              </div>
+              <div className="text-xs flex justify-between pt-1">
+                <span className="text-muted-foreground">Minus Team</span>
+                <span className="text-muted-foreground">− $49</span>
+              </div>
+              <div className="flex justify-between text-sm font-bold text-green-600 dark:text-green-400 pt-1 border-t border-border/50">
+                <span>Net in your pocket</span>
+                <span>+$239/mo</span>
+              </div>
+            </div>
           </div>
         </div>
+
+        <p className="text-sm text-muted-foreground mt-8 max-w-lg mx-auto">
+          The typical developer saves <strong className="text-foreground">$72/month</strong> on tokens,
+          pays <strong className="text-green-600 dark:text-green-400">$19/month</strong> for Pro,
+          and keeps <strong className="text-green-600 dark:text-green-400">$53/month</strong> in their pocket.
+        </p>
       </section>
 
       {/* FREE VS PRO */}
