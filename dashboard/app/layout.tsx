@@ -30,7 +30,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               `,
             }}
           />
-          <Script src="https://cdn.paddle.com/paddle/paddle.js" strategy="beforeInteractive" />
         </head>
         <body>
           <Nav />
