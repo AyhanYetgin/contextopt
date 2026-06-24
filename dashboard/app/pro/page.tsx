@@ -53,41 +53,46 @@ export default function ProPage() {
         Get the most out of ContextOpt with advanced features.
       </p>
 
-      <div className="grid gap-6 md:grid-cols-2 max-w-2xl mx-auto">
-        <Card className="border-border/50">
-          <CardHeader>
+      <div className="grid gap-6 md:grid-cols-2 max-w-2xl mx-auto items-stretch">
+        <Card className="border-border/50 flex flex-col">
+          <div className="h-[28px]" />
+          <CardHeader className="pb-3">
             <CardTitle className="text-lg">Free</CardTitle>
-            <p className="text-2xl font-bold">$0</p>
+            <p className="text-3xl font-bold">$0</p>
           </CardHeader>
-          <CardContent className="space-y-2 text-sm">
-            <p>✓ CLI analyze &amp; profile</p>
-            <p>✓ Stdio proxy</p>
-            <p>✓ Basic token estimation</p>
-            <p className="text-muted-foreground">✗ HTTP proxy</p>
-            <p className="text-muted-foreground">✗ Advanced analytics</p>
-            <p className="text-muted-foreground">✗ Priority support</p>
+          <CardContent className="space-y-3 text-sm flex-1 flex flex-col justify-between">
+            <div className="space-y-3">
+              <p className="flex items-center gap-2"><span className="text-green-600">✓</span> CLI analyze & profile</p>
+              <p className="flex items-center gap-2"><span className="text-green-600">✓</span> Stdio proxy</p>
+              <p className="flex items-center gap-2"><span className="text-green-600">✓</span> Basic token estimation</p>
+              <p className="flex items-center gap-2 text-muted-foreground"><span className="text-muted-foreground">✗</span> HTTP proxy</p>
+              <p className="flex items-center gap-2 text-muted-foreground"><span className="text-muted-foreground">✗</span> Advanced analytics</p>
+              <p className="flex items-center gap-2 text-muted-foreground"><span className="text-muted-foreground">✗</span> Priority support</p>
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="border-green-500 dark:border-green-400 relative">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs px-3 py-0.5 rounded-full">
-            Popular
+        <Card className="border-green-500 dark:border-green-400 flex flex-col overflow-hidden">
+          <div className="bg-green-600 text-white text-xs text-center py-1.5 font-medium tracking-wide">
+            POPULAR
           </div>
-          <CardHeader>
+          <CardHeader className="pb-3">
             <CardTitle className="text-lg">Pro</CardTitle>
-            <p className="text-2xl font-bold">
-              $19<span className="text-sm font-normal text-muted-foreground">/month</span>
+            <p className="text-3xl font-bold">
+              $19<span className="text-base font-normal text-muted-foreground">/month</span>
             </p>
           </CardHeader>
-          <CardContent className="space-y-2 text-sm">
-            <p>✓ Everything in Free</p>
-            <p>✓ HTTP proxy (--http)</p>
-            <p>✓ Advanced token analytics</p>
-            <p>✓ Profile comparison reports</p>
-            <p>✓ Priority email support</p>
+          <CardContent className="space-y-3 text-sm flex-1 flex flex-col justify-between">
+            <div className="space-y-3">
+              <p className="flex items-center gap-2"><span className="text-green-600">✓</span> Everything in Free</p>
+              <p className="flex items-center gap-2"><span className="text-green-600">✓</span> HTTP proxy (--http)</p>
+              <p className="flex items-center gap-2"><span className="text-green-600">✓</span> Advanced token analytics</p>
+              <p className="flex items-center gap-2"><span className="text-green-600">✓</span> Profile comparison reports</p>
+              <p className="flex items-center gap-2"><span className="text-green-600">✓</span> Priority email support</p>
+            </div>
             <button
               onClick={handleCheckout}
-              className="mt-4 w-full inline-flex h-10 items-center justify-center rounded-md bg-green-600 px-6 text-sm font-medium text-white hover:bg-green-700 transition-colors cursor-pointer"
+              className="w-full inline-flex h-11 items-center justify-center rounded-md bg-green-600 px-6 text-sm font-medium text-white hover:bg-green-700 transition-colors cursor-pointer mt-4"
             >
               Upgrade to Pro
             </button>
