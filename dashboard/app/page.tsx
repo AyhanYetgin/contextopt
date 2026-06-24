@@ -47,10 +47,11 @@ export default function Home() {
       {/* Works with — infinite scroll */}
       <section className="py-12 border-t border-border/50 text-center overflow-hidden">
         <p className="text-xs text-muted-foreground mb-6 uppercase tracking-widest">Works with</p>
-        <div
-          className="relative [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-        >
-          <div className="flex gap-6 md:gap-12 items-center animate-scroll w-max">
+        <div className="max-w-4xl mx-auto px-6">
+          <div
+            className="relative [mask-image:linear-gradient(to_right,transparent_5%,black_15%,black_85%,transparent_95%)]"
+          >
+            <div className="flex gap-12 md:gap-20 items-center animate-scroll w-max">
             {[...Array(2)].map((_, group) =>
               tools.map((tool) => (
                 <div key={`${group}-${tool.label}`} className="flex flex-col items-center gap-2 shrink-0">
@@ -66,6 +67,7 @@ export default function Home() {
                 </div>
               ))
             )}
+            </div>
           </div>
         </div>
       </section>
