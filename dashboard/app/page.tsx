@@ -41,10 +41,9 @@ export default function Home() {
         <p className="text-xs text-muted-foreground mb-6 uppercase tracking-widest">Works with</p>
         <div className="flex justify-center gap-6 md:gap-12 items-center flex-wrap">
           {[
-            { src: "/claude.png", label: "Claude Code" },
+            { src: "/claudecode-color-light.png", label: "Claude Code" },
             { src: "/cursor.png", label: "Cursor" },
             { src: "/windsurf.png", label: "Windsurf" },
-            { src: "/github-copilot-dark.png", label: "GitHub Copilot", invert: true },
             { src: "/antigravity.png", label: "Antigravity" },
             { src: "/opencode-dark.svg", label: "OpenCode", dark: "/opencode-light.svg" },
           ].map((tool) => (
@@ -55,13 +54,7 @@ export default function Home() {
                   <Image src={tool.dark} alt={tool.label} width={28} height={28} className="hidden dark:block opacity-60" />
                 </>
               ) : (
-                <Image
-                  src={tool.src}
-                  alt={tool.label}
-                  width={28}
-                  height={28}
-                  className={`opacity-60 dark:opacity-50 ${tool.invert ? "dark:invert" : ""}`}
-                />
+                <Image src={tool.src} alt={tool.label} width={28} height={28} className="opacity-60 dark:opacity-50" />
               )}
               <span className="text-xs text-muted-foreground font-medium">{tool.label}</span>
             </div>
