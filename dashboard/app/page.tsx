@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Calculator } from "@/components/calculator";
 
 const tools = [
   { src: "/claudecode-color-light.png", label: "Claude Code" },
@@ -216,6 +217,8 @@ export default function Home() {
           pays <strong className="text-green-600 dark:text-green-400">$19/month</strong> for Pro,
           and keeps <strong className="text-green-600 dark:text-green-400">$53/month</strong> in their pocket.
         </p>
+
+        <Calculator />
       </section>
 
       {/* FREE VS PRO */}
