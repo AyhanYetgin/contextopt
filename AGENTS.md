@@ -40,17 +40,16 @@
 - [x] Test framework (Vitest) + ilk unit test'ler
 - [x] Dashboard Next.js kurulum (shadcn/ui, landing + dashboard sayfası)
 
-### AŞAMA 1 — Ürünü Tamamla (Clerk + Turso + API + Stripe)
-- [ ] Clerk auth (GitHub OAuth)
-- [ ] Turso DB kurulum + kullanıcı/config tabloları
-- [ ] API routes (/api/analyze, /api/profile)
-- [ ] Dashboard'u gerçek veriye bağla
-- [ ] Pro kilit mekanizması (Free/Pro ayrımı)
-- [ ] Stripe entegrasyonu ($19/ay)
+### AŞAMA 1 — Ürünü Tamamla ✅
+- [x] Clerk auth (GitHub OAuth)
+- [x] API routes (/api/analyze, /api/checkout, /api/webhook, /api/cli-token)
+- [x] Dashboard'u gerçek veriye bağla (config paste + canlı API)
+- [x] Pro kilit mekanizması (Clerk metadata ile Free/Pro ayrımı)
+- [x] Lemon Squeezy ödeme entegrasyonu ($20/ay)
 
-### AŞAMA 2 — Para Kazanma
-- [ ] CLI'da Pro kilidi (API token doğrulama)
-- [ ] Stripe webhook + abonelik yönetimi
+### AŞAMA 2 — Para Kazanma ✅
+- [x] CLI'da Pro kilidi (API token doğrulama)
+- [x] Lemon Squeezy webhook + abonelik yönetimi
 
 ### AŞAMA 3 — Tanıtım
 - [ ] Tweet: building in public

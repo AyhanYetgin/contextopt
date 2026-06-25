@@ -50,6 +50,15 @@
   5. Store ID + Variant ID'yi al → `.env.local`'ı güncelle
 - **Kime:** Ayhan
 
+## 25 Haziran 2026
+- Dashboard canlı veriye bağlandı:
+  - `/api/analyze` endpoint'i oluşturuldu (MCP config JSON alır, token/savings analizi yapar)
+  - Dashboard sayfası: config paste UI (textarea ile), analiz sonucu canlı grafik ve KPI kartları
+  - localStorage ile config kalıcılığı (sayfa yenilemelerde kaybolmaz)
+  - Statik `serverData` kalktı, yerini API'den gelen gerçek veri aldı
+- Turso DB ihtiyacı yok — Clerk metadata her şeyi karşılıyor
+- AŞAMA 1 ve AŞAMA 2 tamamen bitti, sıra AŞAMA 3 (tanıtım) ve AŞAMA 4 (lansman)
+
 ## Fikirler
 - Claude Code'un MCP config'i ~/.claude/settings.json'da
 - Kullanıcı bunu okuyup optimize edebilmeli

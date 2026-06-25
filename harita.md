@@ -37,42 +37,45 @@
 ## ⬜ Sıradaki: AŞAMA 1 — Ürünü Tamamla
 
 ### 1a. Clerk Auth (GitHub OAuth)
-- [ ] Clerk kurulumu ve entegrasyonu
-- [ ] GitHub ile giriş butonu
-- [ ] Kullanıcı oturumu (sign-in, sign-out)
-- [ ] Middleware ile route koruma
+- [x] Clerk kurulumu ve entegrasyonu
+- [x] GitHub ile giriş butonu
+- [x] Kullanıcı oturumu (sign-in, sign-out)
+- [x] Middleware ile route koruma
 
-### 1b. Turso DB + API
-- [ ] Turso veritabanı kurulumu
-- [ ] Kullanıcı tablosu (user_id, email, plan, created_at)
-- [ ] MCP config tablosu (config_json, token_analysis)
-- [ ] API routes: /api/analyze, /api/profile, /api/config
+### 1b. API Routes
+- [x] /api/analyze — MCP config analizi (token tahmini, savings raporu)
+- [x] /api/checkout — Lemon Squeezy ödeme bağlantısı
+- [x] /api/webhook — Lemon Squeezy webhook (plan güncelleme)
+- [x] /api/cli-token — CLI Pro token doğrulama
 
 ### 1c. Dashboard — Gerçek Veri
-- [ ] Kullanıcının kendi MCP config'ini yüklemesi
-- [ ] Gerçek token verisi (statik demo veri yerine)
-- [ ] API'den çekilen veri ile grafikler
+- [x] Kullanıcının kendi MCP config'ini yüklemesi (paste JSON)
+- [x] Gerçek token verisi (statik demo veri yerine canlı API)
+- [x] API'den çekilen veri ile grafikler (BarChart, KPI kartları)
+- [x] localStorage ile config kalıcılığı
 
 ### 1d. Pro Kilit Mekanizması
-- [ ] Free / Pro plan ayrımı
-- [ ] Pro özellik: --http profili
-- [ ] Pro özellik: Detaylı analytics
-- [ ] Pro özellik: Geçmiş veri
+- [x] Free / Pro plan ayrımı (Clerk metadata ile)
+- [x] Pro özellik: --http profili
+- [x] Pro özellik: Detaylı analytics
+- [x] CLI token doğrulama endpoint'i
 
 ---
 
 ## ⬜ AŞAMA 2 — Para Kazanma
 
-### 2a. Stripe Entegrasyonu
-- [ ] Stripe hesabı + webhook
-- [ ] $19/ay Pro plan
-- [ ] Ödeme sayfası
-- [ ] Abonelik yönetimi (iptal, değiştir)
+### 2a. Lemon Squeezy Ödeme Entegrasyonu
+- [x] Lemon Squeezy USD store kurulumu
+- [x] $20/ay Pro plan
+- [x] Ödeme sayfası (/pro)
+- [x] Abonelik yönetimi (iptal, değiştir — Lemon Squeezy üzerinden)
+- [x] Webhook ile plan güncelleme (order_created → pro, cancelled → free)
 
 ### 2b. CLI'da Pro Kilidi
-- [ ] API token doğrulama
-- [ ] Pro komutlar: --http profili
-- [ ] Ücretsiz sürümde "upgrade to Pro" mesajı
+- [x] API token doğrulama (/api/cli-token)
+- [x] Pro komutlar: --http profili (requirePro ile korumalı)
+- [x] Token config komutu (contextopt config set token)
+- [x] Ücretsiz sürümde "upgrade to Pro" mesajı
 
 ---
 

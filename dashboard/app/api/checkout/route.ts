@@ -15,9 +15,6 @@ export async function POST(req: NextRequest) {
         data: {
           type: "checkouts",
           attributes: {
-            product_options: {
-              redirect_url: `${body.origin || "http://localhost:3000"}/success`,
-            },
             checkout_data: {
               email: body.email || "",
               custom: {
