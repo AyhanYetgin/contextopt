@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,8 +19,10 @@ export default function ProPage() {
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const isPro = (user?.publicMetadata?.plan as string) === "pro";
+  const [loading, setLoading] = useState(false);
 
   async function handleCheckout() {
+    setLoading(true);
     const res = await fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,6 +36,7 @@ export default function ProPage() {
     if (data.url) {
       window.location.href = data.url;
     }
+    setLoading(false);
   }
 
   if (!isLoaded) return null;
@@ -118,9 +122,20 @@ export default function ProPage() {
             </div>
             <button
               onClick={handleCheckout}
-              className="w-full inline-flex h-11 items-center justify-center rounded-md bg-green-600 px-6 text-sm font-medium text-white hover:bg-green-700 transition-colors cursor-pointer mt-4"
+              disabled={loading}
+              className="w-full inline-flex h-11 items-center justify-center rounded-md bg-green-600 px-6 text-sm font-medium text-white hover:bg-green-700 transition-colors cursor-pointer mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Upgrade to Pro
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Redirecting…
+                </span>
+              ) : (
+                "Upgrade to Pro"
+              )}
             </button>
           </CardContent>
         </Card>
