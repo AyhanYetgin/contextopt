@@ -21,6 +21,9 @@ export async function POST(req: NextRequest) {
                 user_id: body.userId || "",
               },
             },
+            product_options: {
+              redirect_url: `${body.origin || "http://localhost:3000"}/success`,
+            },
           },
           relationships: {
             store: {
