@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
@@ -105,7 +105,7 @@ export default function ProPage() {
           <CardHeader className="pb-3">
             <CardTitle className="text-lg">Pro</CardTitle>
             <p className="text-3xl font-bold">
-              ₺885<span className="text-base font-normal text-muted-foreground">/month</span>
+              \$20<span className="text-base font-normal text-muted-foreground">/month</span>
             </p>
           </CardHeader>
           <CardContent className="space-y-3 text-sm flex-1 flex flex-col justify-between">
