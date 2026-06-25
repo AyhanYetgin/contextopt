@@ -1,10 +1,29 @@
 # ContextOpt — MCP Context Optimizer
 
-Reduce AI agent token waste by **60–90%**. ContextOpt sits between your AI coding agent (Claude Code, Cursor, Windsurf) and its MCP servers, intelligently filtering tools so only relevant ones consume context.
+<p align="center">
+  <b>Reduce AI agent token waste by 60–90%</b>
+  <br>
+  <a href="https://contextopt.vercel.app">🚀 Live Demo</a>
+  ·
+  <a href="https://www.npmjs.com/package/contextopt">📦 npm</a>
+  ·
+  <a href="https://github.com/AyhanYetgin/contextopt">🐙 GitHub</a>
+</p>
+
+<p align="center">
+  <a href="https://contextopt.vercel.app"><img src="https://img.shields.io/badge/demo-live-green?style=flat&logo=vercel" alt="Vercel"></a>
+  <a href="https://www.npmjs.com/package/contextopt"><img src="https://img.shields.io/npm/v/contextopt" alt="npm"></a>
+  <a href="https://github.com/AyhanYetgin/contextopt/blob/main/LICENSE"><img src="https://img.shields.io/github/license/AyhanYetgin/contextopt" alt="MIT"></a>
+  <img src="https://img.shields.io/github/last-commit/AyhanYetgin/contextopt" alt="last commit">
+</p>
+
+---
+
+ContextOpt sits between your AI coding agent (Claude Code, Cursor, Windsurf) and its MCP servers, intelligently filtering tools so only relevant ones consume context.
 
 ## Problem
 
-Every MCP server you add brings 10–30 tools into the agent's context. With 5 servers, that's 100+ tool definitions loaded into every prompt → wasted tokens, slower responses, higher costs.
+Every MCP server you add brings 10–30 tools into the agent's context. With 5 servers, that's **100+ tool definitions** loaded into every prompt → wasted tokens, slower responses, higher costs.
 
 ## Solution
 
@@ -29,6 +48,31 @@ npx contextopt profile -s coding
 # Start the proxy (connects to your AI agent via stdio)
 npx contextopt start --profile coding
 ```
+
+## Web Dashboard
+
+Upload your MCP config and see live token analysis:
+
+```
+https://contextopt.vercel.app
+```
+
+- Paste your `~/.claude/settings.json` or upload the file
+- See token usage per server with live charts
+- Compare profiles and calculate savings
+- Upgrade to Pro for HTTP proxy and advanced analytics
+
+## Installation
+
+```bash
+# Run directly (no install needed)
+npx contextopt analyze
+
+# Or install globally
+npm install -g contextopt
+```
+
+## Commands
 
 ### Analyze
 
@@ -62,16 +106,6 @@ Starts an MCP proxy that:
 2. Discovers their tools
 3. Exposes a filtered tool list to your AI agent
 
-## Installation
-
-```bash
-# Run directly (no install needed)
-npx contextopt analyze
-
-# Or install globally
-npm install -g contextopt
-```
-
 ## How It Works
 
 ```
@@ -97,23 +131,23 @@ filesystem  github  ... (only active profile servers)
 | `debugging` | playwright, memory | Bug hunting |
 | `research` | sequential-thinking, memory | Exploration |
 
-## Roadmap
+## Pricing
 
-- [x] CLI: analyze, profile, start commands
-- [x] Profile system with persistent storage
-- [x] Proxy engine with lazy tool discovery
-- [ ] Dashboard with token analytics
-- [ ] HTTP transport for remote connections
-- [ ] Usage analytics and recommendations
+| Plan | Price | Features |
+|------|-------|----------|
+| Free | $0 | CLI analyze, profile management, stdio proxy, basic token estimation |
+| Pro | $20/mo | Everything in Free + HTTP proxy, advanced analytics, profile comparison, priority support |
 
 ## Tech Stack
 
 | Component | Technology |
 |-----------|------------|
 | CLI | TypeScript + Commander.js |
+| Dashboard | Next.js + shadcn/ui + Recharts |
 | Runtime | Node.js + MCP SDK |
-| Storage | conf (JSON-based) |
-| Analytics | Built-in token calculator |
+| Auth | Clerk (GitHub OAuth) |
+| Payments | Lemon Squeezy |
+| Storage | conf (JSON-based) + Clerk metadata |
 
 ## License
 
