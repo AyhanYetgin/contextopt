@@ -3,28 +3,51 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
-    const origin = body.origin || "http://localhost:3000";
 
-    const checkoutUrl = new URL(
-      `https://buy.paddle.com/price/${process.env.PADDLE_PRICE_ID}`
-    );
+    const res = await fetch("https://api.lemonsqueezy.com/v1/checkouts", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.LEMONSQUEEZY_API_KEY}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        data: {
+          type: "checkouts",
+          attributes: {
+            checkout_data: {
+              email: body.email || "",
+              custom: {
+                user_id: body.userId || "",
+              },
+            },
+          },
+          relationships: {
+            store: {
+              data: { type: "stores", id: process.env.LEMONSQUEEZY_STORE_ID },
+            },
+            variant: {
+              data: { type: "variants", id: process.env.LEMONSQUEEZY_VARIANT_ID },
+            },
+          },
+        },
+      }),
+    });
 
-    checkoutUrl.searchParams.set("success_url", `${origin}/success`);
-    checkoutUrl.searchParams.set("cancel_url", `${origin}/cancel`);
+    const data = await res.json();
 
-    if (body.userId) {
-      checkoutUrl.searchParams.set(
-        "custom_data",
-        JSON.stringify({ user_id: body.userId })
+    if (!res.ok) {
+      return NextResponse.json(
+        { error: "Failed to create checkout" },
+        { status: res.status }
       );
     }
 
-    if (body.email) {
-      checkoutUrl.searchParams.set("customer_email", body.email);
-    }
-
-    return NextResponse.json({ url: checkoutUrl.toString() });
+    return NextResponse.json({ url: data.data.attributes.url });
   } catch {
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
