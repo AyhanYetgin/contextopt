@@ -108,24 +108,71 @@ export default function DashboardPage() {
             Analyze your MCP config
           </h1>
           <p className="text-muted-foreground text-sm">
-            Paste your MCP settings below to see token usage and savings.
+            See which MCP servers cost you the most tokens and how much you can save.
           </p>
         </div>
 
-        <div className="rounded-lg border border-border/50 p-5">
-          <textarea
-            value={configInput}
-            onChange={(e) => setConfigInput(e.target.value)}
-            placeholder={SAMPLE_CONFIG}
-            rows={12}
-            className="w-full bg-transparent border border-border/50 rounded-lg p-4 text-sm font-mono focus:outline-none focus:border-green-500 transition-colors resize-y"
-          />
+        <div className="rounded-lg border border-border/50 p-5 mb-6">
+          <p className="text-sm font-semibold mb-3">How to get your config</p>
+          <div className="space-y-3 text-sm">
+            <div className="flex items-start gap-3">
+              <span className="text-xs font-mono text-green-600 dark:text-green-400 mt-0.5 shrink-0">1.</span>
+              <div>
+                <p className="font-medium">Open your MCP settings file</p>
+                <div className="mt-2 space-y-1.5">
+                  <code className="block text-xs bg-secondary px-2 py-1 rounded font-mono break-all">~/.claude/settings.json</code>
+                  <code className="block text-xs bg-secondary px-2 py-1 rounded font-mono break-all">~/.cursor/mcp.json</code>
+                  <code className="block text-xs bg-secondary px-2 py-1 rounded font-mono break-all">~/.windsurf/mcp_config.json</code>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="text-xs font-mono text-green-600 dark:text-green-400 mt-0.5 shrink-0">2.</span>
+              <p>Copy the entire file content (Ctrl+A, Ctrl+C)</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="text-xs font-mono text-green-600 dark:text-green-400 mt-0.5 shrink-0">3.</span>
+              <p>Paste it below — or upload the file directly</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-lg border-2 border-dashed border-border/50 p-5">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <textarea
+                value={configInput}
+                onChange={(e) => setConfigInput(e.target.value)}
+                placeholder={SAMPLE_CONFIG}
+                rows={10}
+                className="w-full bg-transparent border border-border/50 rounded-lg p-4 text-sm font-mono focus:outline-none focus:border-green-500 transition-colors resize-y"
+              />
+              <label className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer mt-2">
+                <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                Upload file instead
+                <input
+                  type="file"
+                  accept=".json,.txt"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                      setConfigInput(reader.result as string);
+                    };
+                    reader.readAsText(file);
+                  }}
+                />
+              </label>
+            </div>
+          </div>
           {error && (
             <p className="text-red-500 text-xs mt-2">{error}</p>
           )}
           <div className="flex items-center justify-between mt-4">
             <p className="text-xs text-muted-foreground">
-              Paste your Claude/Cursor/Windsurf MCP config JSON
+              Supports Claude Code, Cursor, and Windsurf configs
             </p>
             <button
               onClick={handleAnalyze}
