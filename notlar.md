@@ -59,6 +59,15 @@
 - Turso DB ihtiyacı yok — Clerk metadata her şeyi karşılıyor
 - AŞAMA 1 ve AŞAMA 2 tamamen bitti, sıra AŞAMA 3 (tanıtım) ve AŞAMA 4 (lansman)
 
+## 25 Haziran 2026 — Tanıtım Başladı
+- README güncellendi: badge'ler, live demo linki, fiyat tablosu
+- OG meta tagleri eklendi (site paylaşılınca güzel görünsün diye)
+- Dev.to blog yazısı hazırlandı (blog/contextopt-intro.md)
+- Reddit: r/ClaudeAI'ye post atıldı (mod onayı bekliyor)
+- Show HN: hesap yeni olduğu için kısıtlama var, 1-2 hafta sonra tekrar dene
+- npm weekly downloads: 136 (sadece kendi testler + CI/CD)
+- Sıradaki: Dev.to'ya yazıyı yayınla, ardından Twitter/LinkedIn
+
 ## Fikirler
 - Claude Code'un MCP config'i ~/.claude/settings.json'da
 - Kullanıcı bunu okuyup optimize edebilmeli

@@ -51,16 +51,16 @@
 - [x] CLI'da Pro kilidi (API token doğrulama)
 - [x] Lemon Squeezy webhook + abonelik yönetimi
 
-### AŞAMA 3 — Tanıtım
-- [ ] Tweet: building in public
-- [ ] Reddit: r/ClaudeAI, r/cursor
-- [ ] GitHub star kas (README + demo GIF)
-- [ ] Product Hunt hazırlık
+### AŞAMA 3 — Tanıtım (Devam Ediyor)
+- [x] OG meta tags (site paylaşılınca güzel görünsün diye)
+- [x] README güncelleme (badge, live demo linki, fiyat tablosu)
+- [x] Dev.to blog yazısı hazır (blog/contextopt-intro.md)
+- [x] Reddit: r/ClaudeAI'ye post atıldı (mod onayı bekliyor)
 
 ### AŞAMA 4 — Lansman (29 Temmuz - 4 Ağustos)
 - [ ] Product Hunt
-- [ ] HN Show HN
 - [ ] Twitter/X thread
+- [ ] Show HN (kısıtlama var, hesap yeni olduğu için)
 - [ ] İlk 3-5 müşteri
 
 ---
