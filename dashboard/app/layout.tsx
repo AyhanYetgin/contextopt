@@ -8,9 +8,23 @@ import "./globals.css";
 const geistSans = Geist({ variable: "--font-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
+const siteUrl = "https://contextopt.vercel.app";
+
 export const metadata: Metadata = {
   title: "ContextOpt — MCP Context Optimizer",
-  description: "Reduce AI agent token waste by 60–90%",
+  description: "Reduce AI agent token waste by 60–90%. ContextOpt filters MCP tools by profile so only relevant ones consume tokens.",
+  openGraph: {
+    title: "ContextOpt — MCP Context Optimizer",
+    description: "Reduce AI agent token waste by 60–90%. Profile-based MCP tool filtering for Claude Code, Cursor, and Windsurf.",
+    url: siteUrl,
+    siteName: "ContextOpt",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ContextOpt — MCP Context Optimizer",
+    description: "Reduce AI agent token waste by 60–90%. Profile-based MCP tool filtering.",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
