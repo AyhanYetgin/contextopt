@@ -5,13 +5,13 @@
 - **Hedef Gelir**: 20.000-30.000 TL/ay (≈$600-900 USD)
 - **Müşteri**: Developer'lar (Claude Code, Cursor, Windsurf kullanıcıları)
 - **MVP Süresi**: ~6-7 hafta (15-20 saat/hafta)
-- **Fiyat**: Free (OSS) / Pro $19/ay / Team $49/ay
+- **Fiyat**: Free (OSS) / Pro $20/ay
 
 ---
 
-## HAFTALIK TAKİP
+## Tamamlanan Aşamalar
 
-### HAFTA 1 - CLI Çekirdek (24-30 Haziran)
+### ✅ HAFTA 1 - CLI Çekirdek
 - [x] Proje klasörü oluştur
 - [x] CLI iskeleti (TypeScript + Commander.js)
 - [x] MCP settings.json parser
@@ -24,9 +24,8 @@
 - [x] Profile komutu persistent CRUD
 - [x] Analyze profile-aware iyileştirme
 - [x] Dashboard Next.js kurulum (shadcn/ui, landing + dashboard sayfası)
-- [ ] İlk tweet: building in public
 
-### HAFTA 2 - Proxy Engine (1-7 Temmuz)
+### ✅ HAFTA 2 - Proxy Engine
 - [x] MCP proxy engine (agent-server arası) — @modelcontextprotocol/sdk
 - [x] Server lifecycle manager (spawn/kill/restart)
 - [x] Lazy tool discovery (sadece profile'daki server'lar başlatılır)
@@ -38,45 +37,53 @@
 - [x] Proxy HTTP transport (--http flag ile)
 - [x] GitHub Actions CI/CD (build + lint + test)
 - [x] Test framework (Vitest) + ilk unit test'ler
-- [x] Dashboard Next.js kurulum (shadcn/ui, landing + dashboard sayfası)
 
-### AŞAMA 1 — Ürünü Tamamla ✅
+### ✅ AŞAMA 1 — Ürünü Tamamla
 - [x] Clerk auth (GitHub OAuth)
 - [x] API routes (/api/analyze, /api/checkout, /api/webhook, /api/cli-token)
 - [x] Dashboard'u gerçek veriye bağla (config paste + canlı API)
 - [x] Pro kilit mekanizması (Clerk metadata ile Free/Pro ayrımı)
 - [x] Lemon Squeezy ödeme entegrasyonu ($20/ay)
 
-### AŞAMA 2 — Para Kazanma ✅
+### ✅ AŞAMA 2 — Para Kazanma
 - [x] CLI'da Pro kilidi (API token doğrulama)
 - [x] Lemon Squeezy webhook + abonelik yönetimi
+- [x] Ödeme sonrası yönlendirme (/success sayfası)
 
-### AŞAMA 3 — Tanıtım (Devam Ediyor)
-- [x] OG meta tags (site paylaşılınca güzel görünsün diye)
-- [x] README güncelleme (badge, live demo linki, fiyat tablosu)
+---
+
+## Devam Eden Aşamalar
+
+### 🔄 AŞAMA 3 — Tanıtım
+- [x] OG meta tags (site paylaşılınca güzel görünsün)
+- [x] README güncelleme (badge, live demo, fiyat tablosu)
 - [x] Dev.to blog yazısı hazır (blog/contextopt-intro.md)
 - [x] Reddit: r/ClaudeAI'ye post atıldı (mod onayı bekliyor)
+- [ ] Tweet: building in public
+- [ ] Dev.to yazısını yayınla
+- [ ] Demo GIF hazırla
+- [ ] Product Hunt sayfası hazırlığı
 
-### AŞAMA 4 — Lansman (29 Temmuz - 4 Ağustos)
-- [ ] Product Hunt
+### ⬜ AŞAMA 4 — Lansman (29 Temmuz - 4 Ağustos)
+- [ ] Product Hunt lansmanı
 - [ ] Twitter/X thread
-- [ ] Show HN (kısıtlama var, hesap yeni olduğu için)
+- [ ] Show HN
 - [ ] İlk 3-5 müşteri
 
 ---
 
 ## Günlük Yapılacaklar
-**29 Haziran:**
-- [x] Parser env variable çözümleme
-- [x] Config path discovery (Claude/Cursor/Windsurf)
-- [x] Profile komutu persistent CRUD (conf paketi)
-- [x] Analyze profile-aware iyileştirme
-- [x] @modelcontextprotocol/sdk entegrasyonu
-- [x] Server lifecycle manager (spawn/kill/restart)
-- [x] Lazy tool discovery + context optimizer
-- [x] Proxy engine MCP server (tools/list, tools/call)
-- [x] Test: sequential-thinking server başarılı
-- [ ] Dashboard için Next.js kurulumu
+
+**25-26 Haziran:**
+- [x] Dashboard canlı veri (/api/analyze endpoint)
+- [x] Config upload UX (adım adım talimat + dosya yükleme)
+- [x] OG meta tags
+- [x] README badge, live demo, fiyat tablosu
+- [x] Dev.to blog yazısı hazır
+- [x] Reddit post
+- [x] Commit mesaj formatı düzeltmesi (İngilizce + Türkçe)
+- [ ] Dev.to yazısını yayınla
+- [ ] Tweet
 
 ---
 
@@ -84,15 +91,17 @@
 | Bileşen | Teknoloji |
 |---------|-----------|
 | CLI | TypeScript + Commander.js |
-| Frontend | Next.js 14 + Tailwind + shadcn/ui |
+| Frontend | Next.js 16 + Tailwind + shadcn/ui + Recharts |
 | Auth | Clerk (GitHub OAuth) |
-| DB | Turso (SQLite edge) |
 | Hosting | Vercel |
-| Payments | Stripe |
-| Analytics | PostHog (self-host) |
+| Payments | Lemon Squeezy |
+| Storage | conf (JSON-based) + Clerk metadata |
 
 ---
 
 ## Önemli Linkler
 - MCP Spec: https://spec.modelcontextprotocol.io/
 - Claude Code MCP: https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview
+- Canlı Site: https://contextopt.vercel.app
+- GitHub: https://github.com/AyhanYetgin/contextopt
+- npm: https://www.npmjs.com/package/contextopt

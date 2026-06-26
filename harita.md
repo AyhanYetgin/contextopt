@@ -4,7 +4,7 @@
 
 ### CLI Çekirdek
 - [x] CLI iskeleti (TypeScript + Commander.js)
-- [x] 3 komut: analyze, start, profile
+- [x] 3 komut: analyze, start, profile, config
 - [x] MCP settings.json parser + env variable çözümleme
 - [x] Token hesaplama + maliyet tahmini
 - [x] Config path discovery (Claude/Cursor/Windsurf)
@@ -25,73 +25,47 @@
 - [x] GitHub Actions CI/CD (build+lint+test+publish)
 - [x] Vitest test framework + unit test'ler
 
-### Dashboard (Tasarım)
+### Web Dashboard
 - [x] Next.js 16 + shadcn/ui kurulum
 - [x] Landing page (hero, features, how it works, CTA)
 - [x] Dashboard sayfası (KPI kartları, Recharts bar chart, profil karşılaştırma)
 - [x] Dark mode (sistem algılama + toggle + localStorage)
 - [x] Works with (infinite scroll carousel, 5 araç logosu)
+- [x] OG meta tags (Twitter Card + Open Graph)
 
----
+### AŞAMA 1 — Ürünü Tamamla
+- [x] Clerk auth (GitHub OAuth, sign-in/up, middleware)
+- [x] API routes: /api/analyze, /api/checkout, /api/webhook, /api/cli-token
+- [x] Dashboard canlı veri (config paste UI, localStorage, API-driven grafikler)
+- [x] Pro kilit mekanizması (Clerk metadata ile Free/Pro ayrımı)
+- [x] Dashboard config upload UX (adım adım talimat, dosya yükleme)
 
-## ⬜ Sıradaki: AŞAMA 1 — Ürünü Tamamla
-
-### 1a. Clerk Auth (GitHub OAuth)
-- [x] Clerk kurulumu ve entegrasyonu
-- [x] GitHub ile giriş butonu
-- [x] Kullanıcı oturumu (sign-in, sign-out)
-- [x] Middleware ile route koruma
-
-### 1b. API Routes
-- [x] /api/analyze — MCP config analizi (token tahmini, savings raporu)
-- [x] /api/checkout — Lemon Squeezy ödeme bağlantısı
-- [x] /api/webhook — Lemon Squeezy webhook (plan güncelleme)
-- [x] /api/cli-token — CLI Pro token doğrulama
-
-### 1c. Dashboard — Gerçek Veri
-- [x] Kullanıcının kendi MCP config'ini yüklemesi (paste JSON)
-- [x] Gerçek token verisi (statik demo veri yerine canlı API)
-- [x] API'den çekilen veri ile grafikler (BarChart, KPI kartları)
-- [x] localStorage ile config kalıcılığı
-
-### 1d. Pro Kilit Mekanizması
-- [x] Free / Pro plan ayrımı (Clerk metadata ile)
-- [x] Pro özellik: --http profili
-- [x] Pro özellik: Detaylı analytics
-- [x] CLI token doğrulama endpoint'i
-
----
-
-## ⬜ AŞAMA 2 — Para Kazanma
-
-### 2a. Lemon Squeezy Ödeme Entegrasyonu
-- [x] Lemon Squeezy USD store kurulumu
-- [x] $20/ay Pro plan
-- [x] Ödeme sayfası (/pro)
-- [x] Abonelik yönetimi (iptal, değiştir — Lemon Squeezy üzerinden)
+### AŞAMA 2 — Para Kazanma
+- [x] Lemon Squeezy USD store kurulumu ($20/ay Pro plan)
+- [x] Ödeme sayfası (/pro) + checkout redirect (/success)
 - [x] Webhook ile plan güncelleme (order_created → pro, cancelled → free)
+- [x] CLI Pro token doğrulama (/api/cli-token)
+- [x] CLI'da Pro kilidi (--http requirePro ile korumalı)
 
-### 2b. CLI'da Pro Kilidi
-- [x] API token doğrulama (/api/cli-token)
-- [x] Pro komutlar: --http profili (requirePro ile korumalı)
-- [x] Token config komutu (contextopt config set token)
-- [x] Ücretsiz sürümde "upgrade to Pro" mesajı
+### AŞAMA 3 — Tanıtım (Kısmi)
+- [x] README güncelleme (badge, live demo, fiyat tablosu)
+- [x] Dev.to blog yazısı hazır (blog/contextopt-intro.md)
+- [x] Reddit: r/ClaudeAI'ye post atıldı
 
 ---
 
-## ⬜ AŞAMA 3 — Tanıtım
+## ⬜ Sıradaki
 
+### AŞAMA 3 — Tanıtım (Kalan)
 - [ ] Tweet: building in public
-- [ ] Reddit: r/ClaudeAI, r/cursor
-- [ ] GitHub star kas (README güncelleme, demo GIF)
+- [ ] Dev.to yazısını yayınla
+- [ ] Reddit mod onayı gelince post canlı
+- [ ] Show HN (hesap yeni, 1-2 hafta sonra dene)
+- [ ] Demo GIF hazırla
 - [ ] Product Hunt sayfası hazırlığı
 
----
-
-## ⬜ AŞAMA 4 — Lansman (29 Temmuz - 4 Ağustos)
-
+### AŞAMA 4 — Lansman (29 Temmuz - 4 Ağustos)
 - [ ] Product Hunt lansmanı
-- [ ] HN Show HN
 - [ ] Twitter/X thread
 - [ ] İlk 3-5 müşteriyi kazan
 
@@ -105,5 +79,5 @@
 | 500 CLI kullanıcısı | %3-5 | $285-475 |
 | 1000 CLI kullanıcısı | %3-5 | $570-950 |
 
-- Fiyat: Free (OSS) / Pro $19/ay / Team $49/ay
+- Fiyat: Free (OSS) / Pro $20/ay
 - Hedef: 20.000-30.000 TL/ay (≈$600-900 USD)

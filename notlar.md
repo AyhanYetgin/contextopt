@@ -4,25 +4,56 @@
 - Proje başladı. AI Agent Context Optimizer (MCP Gateway) seçildi.
 - CLI önce, dashboard sonra stratejisi.
 - 15-20 saat/hafta çalışma temposu.
-- Hedef: 30-50 Pro kullanıcı × $19 = $570-950/ay
+- Hedef: 30-50 Pro kullanıcı × $20 = $600-1000/ay
 - Conduit ve Sipcode bugün PH'da 129'ar upvote aldı → pazar doğrulandı
 
-## Aşama 1 Tamamlandı — Aşama 2 Başladı
-
-### Proxy Engine (29 Haziran 2026)
-- @modelcontextprotocol/sdk entegrasyonu
-- Server lifecycle manager: MCP server process'lerini spawn/kill/restart
+## 29 Haziran 2026 — Proxy Engine
+- @modelcontextprotocol/sdk entegrasyonu tamam
+- Server lifecycle manager: spawn/kill/restart
 - Lazy tool discovery: sadece profile'daki server'ları başlat
 - Context window optimizer: profile'a göre tool filtreleme
 - Test: sequential-thinking server başarıyla bağlandı, tools/list çalışıyor
-- Kullanım: `contextopt start --profile coding -c mcp-config.json`
+- npm publish → contextopt@0.1.0
 
-## Aşama 1 — CLI Tamamlama
-- MCP Parser: env variable çözümleme eklendi (${VAR} → process.env)
-- Config path discovery: Claude Code / Cursor / Windsurf otomatik algılama
-- Profile komutu: conf paketi ile persistent CRUD (create/list/set/delete)
+## CLI Tamamlama
+- MCP Parser: env variable çözümleme (${VAR} → process.env)
+- Config path discovery: Claude Code / Cursor / Windsurf
+- Profile komutu: conf paketi ile persistent CRUD
 - Built-in profiller: coding, debugging, research, default
 - Analyze komutu: profile-aware rapor, per-server detaylı döküm
+- CLI Pro kilidi: --http flag'i Pro token ile korumalı
+
+## Dashboard Tamamlama
+- Next.js 16 + shadcn/ui kurulum
+- Landing page (hero, features, how it works, CTA, savings calculator)
+- Dashboard sayfası (KPI kartları, Recharts bar chart, profil karşılaştırma)
+- Dark mode (sistem algılama + toggle + localStorage)
+- Works with (infinite scroll carousel, 5 araç logosu)
+- Clerk auth (GitHub OAuth, sign-in/up, middleware koruması)
+- Pro sayfası (/pro) + Ödeme (Lemon Squeezy)
+- Başarılı ödeme yönlendirmesi (/success)
+- OG meta tags (Twitter Card + Open Graph)
+
+## 25-26 Haziran 2026 — Dashboard Canlı Veri + Tanıtım
+- `/api/analyze` endpoint'i (MCP config → token/savings analizi)
+- Dashboard config paste UI (textarea + dosya yükleme + adım adım talimat)
+- Statik demo veri kalktı, API-driven grafikler
+- localStorge ile config kalıcılığı
+- README güncellendi: badge, live demo linki, fiyat tablosu
+- Dev.to blog yazısı hazır (blog/contextopt-intro.md)
+- Reddit: r/ClaudeAI'ye post atıldı (mod onayı bekliyor)
+- Commit mesaj formatı: İngilizce + Türkçe (`Tr:` prefix)
+- npm weekly downloads: 136 (sadece kendi testler + CI/CD)
+- Show HN: hesap yeni, 1-2 hafta sonra tekrar dene
+
+--- 
+
+## ✅ Çözülen Sorunlar
+- ~~Lemon Squeezy TRY/USD sorunu~~ → USD store açıldı (#417278)
+- ~~Paddle entegrasyonu~~ → Lemon Squeezy'ye geçildi
+- ~~Turso DB~~ → Gerek kalmadı, Clerk metadata yeterli
+
+---
 
 ## Düşünceler
 - CLI tool tek başına değer üretmeli, dashboard sonra gelmeli
@@ -30,52 +61,8 @@
 - İlk kullanıcı ben olacağım (dogfooding)
 - AGENTS.md'yi her hafta güncelle
 
-## Sorular
-- CLI'ı npm paketi mi olarak dağıtalım yoksa npx mi?
-  → Cevap: npx ile başla, sonra npm publish
-- Dashboard'da hangi metrikler kritik?
-  → Token savings %, tool usage frequency, cost per session
-
-## ⚠️ Düzeltilmesi Gerekenler
-
-### Lemon Squeezy — USD Store (Kritik)
-- **Sorun:** Store TRY para biriminde açıldı, site $19 diyor ama checkout TRY gösteriyor
-- **Çözüm:** Yeni bir USD store aç + USD ile $19/ay product oluştur
-- **Ne zaman:** Rate limit geçince (1 saat sonra)
-- **Nasıl:**
-  1. https://lemonsqueezy.com → Stores → Create Store
-  2. Store name: `ContextOpt`, Currency: **USD**, Country: `United States`
-  3. Store URL: `contextopt-shop` gibi boşta bir şey
-  4. New Product → Subscription → $19/month
-  5. Store ID + Variant ID'yi al → `.env.local`'ı güncelle
-- **Kime:** Ayhan
-
-## 25 Haziran 2026
-- Dashboard canlı veriye bağlandı:
-  - `/api/analyze` endpoint'i oluşturuldu (MCP config JSON alır, token/savings analizi yapar)
-  - Dashboard sayfası: config paste UI (textarea ile), analiz sonucu canlı grafik ve KPI kartları
-  - localStorage ile config kalıcılığı (sayfa yenilemelerde kaybolmaz)
-  - Statik `serverData` kalktı, yerini API'den gelen gerçek veri aldı
-- Turso DB ihtiyacı yok — Clerk metadata her şeyi karşılıyor
-- AŞAMA 1 ve AŞAMA 2 tamamen bitti, sıra AŞAMA 3 (tanıtım) ve AŞAMA 4 (lansman)
-
-## 25 Haziran 2026 — Tanıtım Başladı
-- README güncellendi: badge'ler, live demo linki, fiyat tablosu
-- OG meta tagleri eklendi (site paylaşılınca güzel görünsün diye)
-- Dev.to blog yazısı hazırlandı (blog/contextopt-intro.md)
-- Reddit: r/ClaudeAI'ye post atıldı (mod onayı bekliyor)
-- Show HN: hesap yeni olduğu için kısıtlama var, 1-2 hafta sonra tekrar dene
-- npm weekly downloads: 136 (sadece kendi testler + CI/CD)
-- Sıradaki: Dev.to'ya yazıyı yayınla, ardından Twitter/LinkedIn
-
 ## Fikirler
-- Claude Code'un MCP config'i ~/.claude/settings.json'da
-- Kullanıcı bunu okuyup optimize edebilmeli
-- Lazy loading: tool'lar sadece kullanılınca yüklensin
-- GitHub repo: github.com/AyhanYetgin/contextopt
-- npm: contextopt@0.1.0
-- Proxy: HTTP mode eklendi (--http flag, Streamable HTTP transport)
-- GitHub Actions: CI (build+lint+test) + Publish workflow
-- Vitest: 7 test, hepsi geçiyor
-- Dashboard: Next.js 16 + shadcn/ui, landing + /dashboard sayfası
-- Kullanım: contextopt start --http --port 3456
+- Demo GIF hazırla (README + Product Hunt için)
+- VS Code extension?
+- Team plan ($49/ay) için multi-user profile yönetimi
+- Usage analytics dashboard
